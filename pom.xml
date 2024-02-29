@@ -48,6 +48,18 @@
 			<version>2.2.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.5.5.Final</version> <!-- Verifique a versão mais recente -->
+		</dependency>
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>1.5.5.Final</version> <!-- Verifique a versão mais recente -->
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

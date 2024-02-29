@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+
 @Entity
 @Table(name = "PRODUCTS")
 public class ProductModel extends RepresentationModel<ProductModel> implements Serializable {
