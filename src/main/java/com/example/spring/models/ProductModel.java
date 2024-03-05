@@ -28,6 +28,8 @@ public class ProductModel extends RepresentationModel<ProductModel> implements S
     @Enumerated(EnumType.STRING)
     private CategoryModel categoryModel;
 
+
+
     public void setIdProduct(UUID idProduct) {
         this.idProduct = idProduct;
     }

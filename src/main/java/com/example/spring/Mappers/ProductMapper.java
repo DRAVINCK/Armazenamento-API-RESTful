@@ -12,7 +12,7 @@ public interface ProductMapper {
     ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 
     @Mapping(target = "idProduct", ignore = true) // Ignorar mapeamento para o ID, pois será gerado automaticamente
-    ProductModel dtoToEntity(ProductRecordDto dto);
+    ProductModel dtoToEntity(ProductRecordDto productDto);
 
-    ProductRecordDto entityToDto(ProductModel entity);
+    ProductRecordDto entityToDto(ProductModel productEntity);
 }
