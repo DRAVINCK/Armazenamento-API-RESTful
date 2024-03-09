@@ -9,10 +9,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import static java.math.BigDecimal.*;
+
 
 @Entity
 @Table(name = "PRODUCTS")
 public class ProductModel extends RepresentationModel<ProductModel> implements Serializable {
+
     @Serial
     private static final long serialVersionUID =1L;
 
@@ -27,8 +30,6 @@ public class ProductModel extends RepresentationModel<ProductModel> implements S
 
     @Enumerated(EnumType.STRING)
     private CategoryModel categoryModel;
-
-
 
     public void setIdProduct(UUID idProduct) {
         this.idProduct = idProduct;
@@ -47,6 +48,9 @@ public class ProductModel extends RepresentationModel<ProductModel> implements S
     }
 
     public void setValue(BigDecimal value) {
+        if (value == null || value.compareTo(BigDecimal.ZERO) == 0) {
+            throw new IllegalArgumentException("Valor não pode ser zero");
+        }
         this.value = value;
     }
 

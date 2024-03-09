@@ -1,20 +1,20 @@
 package com.example.spring.Services;
 
 import com.example.spring.Mappers.StoredItemMapper;
+import com.example.spring.controllers.ProductController;
 import com.example.spring.controllers.StoredItemController;
 import com.example.spring.controllers.dtos.StoredItemRecordDto;
 import com.example.spring.models.StoredItemModel;
 import com.example.spring.repositories.StoredItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.hateoas.Link;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class StoredItemService {
@@ -30,10 +30,12 @@ public class StoredItemService {
         return storedItemRepository.save(storedItemModel);
     }
 
-    public CollectionModel<EntityModel<StoredItemModel>> getAllItems() {
-        List<StoredItemModel> storedItemModelList = storedItemRepository.findAll();
-        storedItemModelList.forEach(item -> item.add(WebMvcLinkBuilder.linkTo(StoredItemController.class).slash(item.getStorageId()).withSelfRel()));
-        return CollectionModel.of(storedItemModelList);
+    public List<StoredItemModel> getAllStoredItems(){
+        List<StoredItemModel> storedItemList = storedItemRepository.findAll();
+        storedItemList.forEach(storedItem -> storedItem.add(
+                linkTo(methodOn(StoredItemController.class).getOneStoredItem(storedItem.getStorageId())).withSelfRel()));
+
+        return storedItemList;
     }
 
     public Optional<StoredItemModel> getOneItem(UUID id) {
@@ -44,7 +46,7 @@ public class StoredItemService {
         Optional<StoredItemModel> itemOptional = storedItemRepository.findById(id);
         if (itemOptional.isPresent()) {
             StoredItemModel storedItemModel = itemOptional.get();
-            storedItemMapper.updateEntityFromDto(storedItemRecordDto, storedItemModel);
+            storedItemMapper.entityToDto(storedItemModel);
             return storedItemRepository.save(storedItemModel);
         }
         return null;

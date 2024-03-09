@@ -12,4 +12,7 @@ public class MappingConfig {
     public ProductMapper productMapper(){
         return Mappers.getMapper(ProductMapper.class);
     }
+
+    @Bean
+    public StoredItemMapper storedItemMapper(){return Mappers.getMapper(StoredItemMapper.class);}
 }

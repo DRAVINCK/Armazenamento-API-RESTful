@@ -6,5 +6,5 @@ import jakarta.persistence.Table;
 
 @Table(name = "CATEGORY")
 public enum CategoryModel {
-    INFORMATICA, ELETRODOMESTICOS, VESTUARIO
+    INFORMATICA, ELETRODOMESTICOS, VESTUARIO, COZINHA
 }

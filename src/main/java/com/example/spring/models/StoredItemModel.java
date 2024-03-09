@@ -2,22 +2,23 @@ package com.example.spring.models;
 
 import jakarta.persistence.*;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
 @Table(name = "stored_items")
-public class StoredItemModel {
+public class StoredItemModel extends RepresentationModel<StoredItemModel> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID storageId; // ID do depósito onde o item está armazenado
+    private UUID storageId;
 
     @OneToOne
-    @JoinColumn(name = "product_id") // Nome da coluna que representa o ID do produto na tabela de stored_items
+    @JoinColumn(name = "product_id")
     private ProductModel productModel;
-    private BigDecimal storageValue; // Valor de armazenamento do item
+    private BigDecimal storageValue;
 
 
     public UUID getStorageId() {
@@ -36,8 +37,12 @@ public class StoredItemModel {
         this.productModel = productModel;
     }
 
+    public void setStorageValue(BigDecimal storageValue) {
+        this.storageValue = storageValue;
+    }
+
     public BigDecimal getStorageValue() {
-        return storageValue = productModel.getValue().multiply(BigDecimal.valueOf(0.18));
+        return storageValue;
     }
 
 }
